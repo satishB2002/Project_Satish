@@ -1,0 +1,71 @@
+﻿@*@model IEnumerable<Project_Satish.Models.Product>*@
+@using Project_Satish.Models;
+
+@using PagedList;
+
+@using PagedList.Mvc;
+
+@model PagedList.IPagedList<Product>
+
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+
+        <th>
+            ProductID
+        </th>
+
+        <th>
+            ProductName
+        </th>
+        <th>
+            CategoryId
+        </th>
+        <th>
+            CategoryName
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ProductID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ProductID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ProductID })
+            </td>
+        </tr>
+    }
+
+</table>
+<div></div>
+Page@(Model.PageCount<Model.PageNumber ? 0: Model.PageNumber)/@Model.PageCount)
+<div>
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+
+
+</div>
